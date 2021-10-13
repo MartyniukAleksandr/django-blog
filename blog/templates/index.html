@@ -3,27 +3,30 @@
 {% block content %}
     <div class="col-xl-8 py-5 px-md-5">
         <div class="row pt-md-4">
-            <div class="col-md-12">
-                <div class="blog-entry ftco-animate d-md-flex">
-                    <a href="single.html" class="img img-2"
-                       style="background-image: url(/static/images/image_1.jpg);"></a>
-                    <div class="text text-2 pl-md-4">
-                        <h3 class="mb-2"><a href="single.html">A Loving Heart is the Truest Wisdom</a>
-                        </h3>
-                        <div class="meta-wrap">
-                            <p class="meta">
-                                <span><i class="icon-calendar mr-2"></i>June 28, 2019</span>
-                                <span><a href="#"><i class="icon-folder-o mr-2"></i>Travel</a></span>
-                                <span><i class="icon-comment2 mr-2"></i>5 Comment</span>
-                            </p>
+            {% for article in articles %}
+                <div class="col-md-12">
+                    <div class="blog-entry ftco-animate d-md-flex">
+                        <a href="#" class="img img-2"
+                           style="background-image: url({{ article.image.url }});"></a>
+                        <div class="text text-2 pl-md-4">
+                            <h3 class="mb-2"><a href="#">{{ article.title}}</a>
+                            </h3>
+                            <div class="meta-wrap ">
+                                <p class="meta">
+                                    <span><i class="icon-calendar mr-2"></i>{{ article.created_at }}</span>
+                                    <span><a href="{{ article.category.get_absolute_url }}"><i class="icon-folder-o mr-2"></i>{{ article.category }}</a></span>
+                                    <span><i class="icon-comment2 mr-2"></i>{{ article.reviews_set.count }} Отзыв</span>
+                                </p>
+                            </div>
+                            <p class="mb-4">{{ article.short_content }}</p>
+                            <p><a href="{{ article.get_absolute_url }}" class="btn-custom">Читать <span
+                                    class="ion-ios-arrow-forward"></span></a></p>
                         </div>
-                        <p class="mb-4">A small river named Duden flows by their place and supplies it
-                            with the necessary regelialia.</p>
-                        <p><a href="{% url 'blog_detail' %}" class="btn-custom">Read More <span
-                                class="ion-ios-arrow-forward"></span></a></p>
                     </div>
                 </div>
-            </div>
+            {% empty %}
+            <h4>Список статей пуст</h4>
+            {% endfor %}
         </div><!-- END-->
         {% include 'partials/paginations.html' %}
     </div>

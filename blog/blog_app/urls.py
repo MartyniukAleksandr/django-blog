@@ -1,7 +1,11 @@
 from django.urls import path
-from .views import *
+
+from . import views
 
 urlpatterns = [
-    path('', index, name="index"),
-    path('blog_datail', blog_detail, name='blog_detail')
+    path('', views.IndexView.as_view(), name="article_list_all"),
+    path('<slug:slug>/', views.ArticleDetailView.as_view(), name="article_detail"),
+    path('review/<int:pk>/', views.AddReview.as_view(), name="add_review"),
+    path('category/<slug:slug>/', views.CategoryView.as_view(), name='article_category_list')
+
 ]
