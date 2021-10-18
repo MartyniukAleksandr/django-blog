@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.views.generic.base import View
 from django.views.generic import ListView, DetailView
-from .models import Article, Category
+from .models import Article
 from .forms import ReviewForm
 
 
@@ -38,9 +38,22 @@ class AddReview(View):
 class CategoryView(ListView):
     """Категории статей"""
     model = Article
-    queryset = Article.objects.filter(draft=False)
+    # queryset = Article.objects.filter(draft=False)
     context_object_name = 'articles'
     template_name = 'index.html'
 
     def get_queryset(self):
+        """Фильтруем статьи по категориям"""
         return Article.objects.filter(category__slug=self.kwargs['slug'], draft=False)
+
+
+class TagView(ListView):
+    """Теги сайта"""
+    model = Article
+    # queryset = Article.objects.filter(draft=False)
+    context_object_name = 'articles'
+    template_name = 'index.html'
+
+    def get_queryset(self):
+        """Фильтруем статьи по ключевым словам(тегам)"""
+        return Article.objects.filter(tags__slug=self.kwargs['slug'], draft=False)

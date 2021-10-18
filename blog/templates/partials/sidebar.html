@@ -61,16 +61,14 @@
     </div>
 
     <div class="sidebar-box ftco-animate">
-        <h3 class="sidebar-heading">Tag Cloud</h3>
+        <h3 class="sidebar-heading">Теги</h3>
         <ul class="tagcloud">
-            <a href="#" class="tag-cloud-link">animals</a>
-            <a href="#" class="tag-cloud-link">human</a>
-            <a href="#" class="tag-cloud-link">people</a>
-            <a href="#" class="tag-cloud-link">cat</a>
-            <a href="#" class="tag-cloud-link">dog</a>
-            <a href="#" class="tag-cloud-link">nature</a>
-            <a href="#" class="tag-cloud-link">leaves</a>
-            <a href="#" class="tag-cloud-link">food</a>
+            {% get_tags as tags %}
+            {% for tag in tags %}
+            <a href="{% url 'tags_list' tag.slug %}" class="tag-cloud-link">{{ tag.name }}</a>
+            {% empty %}
+                <h4>Список тегов пуст</h4>
+            {% endfor %}
         </ul>
     </div>
 
@@ -101,8 +99,7 @@
 
 
     <div class="sidebar-box ftco-animate">
-        <h3 class="sidebar-heading">Paragraph</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem
-            necessitatibus voluptate quod mollitia delectus aut.</p>
+        <h3 class="sidebar-heading" style="color: #a41515">Внимание!!!</h3>
+        <p>Сайт работает в тестовом режиме</p>
     </div>
 </div><!-- END COL -->

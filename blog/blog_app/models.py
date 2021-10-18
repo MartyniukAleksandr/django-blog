@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-
+from taggit.managers import TaggableManager
 
 class Category(models.Model):
     """Категории блога"""
@@ -34,6 +34,7 @@ class Article(models.Model):
     image = models.ImageField(upload_to='blog_images/%Y/%m/%d', verbose_name='Изображение', blank=True)
     draft = models.BooleanField(verbose_name='Черновик', default=False)
     author = models.CharField(verbose_name='Автор', blank=False, max_length=150)
+    tags = TaggableManager()
 
     class Meta:
         ordering = ('-created_at',)
