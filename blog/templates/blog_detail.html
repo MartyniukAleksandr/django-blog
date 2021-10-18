@@ -5,12 +5,12 @@
         <div class="row pt-md-4">
             <h1 class="mb-3">{{ article.title }}</h1>
             <p>{{ article.content }}</p>
-{#            <p>#}
-{#                <img src="/static/images/image_1.jpg" alt="" class="img-fluid">#}
-{#            </p>#}
-{#            <p>#}
-{#                <img src="/static/images/image_2.jpg" alt="" class="img-fluid">#}
-{#            </p>#}
+            {#            <p>#}
+            {#                <img src="/static/images/image_1.jpg" alt="" class="img-fluid">#}
+            {#            </p>#}
+            {#            <p>#}
+            {#                <img src="/static/images/image_2.jpg" alt="" class="img-fluid">#}
+            {#            </p>#}
             <div class="tag-widget post-tag-container mb-5 mt-5">
                 <div class="tagcloud">
                     <a href="#" class="tag-cloud-link">Life</a>
@@ -33,111 +33,57 @@
             </div>
 
             <div class="pt-5 mt-5">
-                <h3 class="mb-5 font-weight-bold">{{ article.reviews_set.count }} Комментариев(а-й)</h3>
-                {% for review in article.reviews_set.all %}
-                <ul class="comment-list">
-                    <li class="comment">
-                        <div class="vcard bio">
-                            <img src="/static/images/person_1.jpg" alt="Image placeholder">
-                        </div>
-                        <div class="comment-body">
-                            <h3>{{ review.name }}</h3>
-                            <div class="meta">{{ review.created_at }}</div>
-                            <p>{{ review.text }}</p>
-                            <p><a href="#" class="reply">Reply</a></p>
-                        </div>
-                    </li>
-
-{#                    <li class="comment">#}
-{#                        <div class="vcard bio">#}
-{#                            <img src="/static/images/person_1.jpg" alt="Image placeholder">#}
-{#                        </div>#}
-{#                        <div class="comment-body">#}
-{#                            <h3>John Doe</h3>#}
-{#                            <div class="meta">October 03, 2018 at 2:21pm</div>#}
-{#                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum#}
-{#                                necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste#}
-{#                                iure! Quam voluptas earum impedit necessitatibus, nihil?</p>#}
-{#                            <p><a href="#" class="reply">Reply</a></p>#}
-{#                        </div>#}
-{##}
-{#                        <ul class="children">#}
-{#                            <li class="comment">#}
-{#                                <div class="vcard bio">#}
-{#                                    <img src="/static/images/person_1.jpg" alt="Image placeholder">#}
-{#                                </div>#}
-{#                                <div class="comment-body">#}
-{#                                    <h3>John Doe</h3>#}
-{#                                    <div class="meta">October 03, 2018 at 2:21pm</div>#}
-{#                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum#}
-{#                                        necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim#}
-{#                                        sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>#}
-{#                                    <p><a href="#" class="reply">Reply</a></p>#}
-{#                                </div>#}
-{##}
-{##}
-{#                                <ul class="children">#}
-{#                                    <li class="comment">#}
-{#                                        <div class="vcard bio">#}
-{#                                            <img src="/static/images/person_1.jpg" alt="Image placeholder">#}
-{#                                        </div>#}
-{#                                        <div class="comment-body">#}
-{#                                            <h3>John Doe</h3>#}
-{#                                            <div class="meta">October 03, 2018 at 2:21pm</div>#}
-{#                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem#}
-{#                                                laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat#}
-{#                                                saepe enim sapiente iste iure! Quam voluptas earum impedit#}
-{#                                                necessitatibus, nihil?</p>#}
-{#                                            <p><a href="#" class="reply">Reply</a></p>#}
-{#                                        </div>#}
-{##}
-{#                                        <ul class="children">#}
-{#                                            <li class="comment">#}
-{#                                                <div class="vcard bio">#}
-{#                                                    <img src="/static/images/person_1.jpg" alt="Image placeholder">#}
-{#                                                </div>#}
-{#                                                <div class="comment-body">#}
-{#                                                    <h3>John Doe</h3>#}
-{#                                                    <div class="meta">October 03, 2018 at 2:21pm</div>#}
-{#                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.#}
-{#                                                        Pariatur quidem laborum necessitatibus, ipsam impedit vitae#}
-{#                                                        autem, eum officia, fugiat saepe enim sapiente iste iure! Quam#}
-{#                                                        voluptas earum impedit necessitatibus, nihil?</p>#}
-{#                                                    <p><a href="#" class="reply">Reply</a></p>#}
-{#                                                </div>#}
-{#                                            </li>#}
-{#                                        </ul>#}
-{#                                    </li>#}
-{#                                </ul>#}
-{#                            </li>#}
-{#                        </ul>#}
-{#                    </li>#}
-{##}
-{#                    <li class="comment">#}
-{#                        <div class="vcard bio">#}
-{#                            <img src="/static/images/person_1.jpg" alt="Image placeholder">#}
-{#                        </div>#}
-{#                        <div class="comment-body">#}
-{#                            <h3>John Doe</h3>#}
-{#                            <div class="meta">October 03, 2018 at 2:21pm</div>#}
-{#                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum#}
-{#                                necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste#}
-{#                                iure! Quam voluptas earum impedit necessitatibus, nihil?</p>#}
-{#                            <p><a href="#" class="reply">Reply</a></p>#}
-{#                        </div>#}
-{#                    </li>#}
-                </ul>
+                {% with article.reviews_set.count as comments %}
+                    {% if comments == 1 %}
+                        <h3 class="mb-5 font-weight-bold">{{ comments }} Отзыв</h3>
+                    {% elif comments <= 4 %}
+                        <h3 class="mb-5 font-weight-bold">{{ comments }} Отзыва</h3>
+                    {% else %}
+                        <h3 class="mb-5 font-weight-bold">{{ comments }} Отзывов</h3>
+                    {% endif %}
+                {% endwith %}
+                {% for review in article.get_review %}
+                    <ul class="comment-list">
+                        <li class="comment">
+                            <div class="vcard bio">
+                                <img src="/static/images/person_1.jpg" alt="Image placeholder">
+                            </div>
+                            <div class="comment-body">
+                                <h3>{{ review.name }}</h3>
+                                <div class="meta">{{ review.created_at }}</div>
+                                <p>{{ review.text }}</p>
+                                <p><a href="#formReview" class="reply"
+                                      onclick="addReview('{{ review.name }}', '{{ review.id }}')">Ответить</a></p>
+                            </div>
+                        </li>
+                        {% for rew in review.reviews_set.all %}
+                            <ul class="children">
+                                <li class="comment">
+                                    <div class="vcard bio">
+                                        <img src="/static/images/person_1.jpg" alt="Image placeholder">
+                                    </div>
+                                    <div class="comment-body">
+                                        <h3>{{ rew.name }}</h3>
+                                        <div class="meta">{{ rew.created_at }}</div>
+                                        <p>{{ rew.text }}</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        {% endfor %}
+                    </ul>
                 {% empty %}
-                    <p>Нет комментариев</p>
+                    <p>Нет отзывов</p>
                 {% endfor %}
                 <!-- END comment-list -->
 
                 <div class="comment-form-wrap pt-5">
-                    <h3 class="mb-5">Leave a comment</h3>
-                    <form action="{% url 'add_review' article.id %}" method="post" class="p-3 p-md-5 bg-light">
+                    <h3 class="mb-5">Оставить комментарий</h3>
+                    <form action="{% url 'add_review' article.id %}" method="post" class="p-3 p-md-5 bg-light"
+                          id="formReview">
                         {% csrf_token %}
+                        <input type="hidden" name="parent" id="contactparent" value="">
                         <div class="form-group">
-                            <label for="name">Name *</label>
+                            <label for="name">Имя *</label>
                             <input type="text" class="form-control" id="name" name="name">
                         </div>
                         <div class="form-group">
@@ -146,8 +92,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea name="text" id="message" cols="30" rows="10" class="form-control"></textarea>
+                            <label for="message">Сообщение</label>
+                            <textarea name="text" id="message" cols="30" rows="10" class="form-control"
+                                      required=""></textarea>
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
@@ -158,4 +105,10 @@
             </div>
         </div><!-- END-->
     </div>
+    <script>
+        function addReview(name, id) {
+            document.getElementById("contactparent").value = id
+            document.getElementById("message").innerText = `${name}@ `
+        }
+    </script>
 {% endblock %}

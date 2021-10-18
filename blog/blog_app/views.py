@@ -28,9 +28,12 @@ class AddReview(View):
         article = Article.objects.get(id=pk)
         if form.is_valid():
             form = form.save(commit=False)  # приостанавливаем запись формы
+            if request.POST.get("parent", None):  # привязка родительского коментария
+                form.parent_id = int(request.POST.get("parent"))
             form.article = article  # вносим новыу изменения...
             form.save()  # и сохраняем их в нашу БД
         return redirect(article.get_absolute_url())
+
 
 class CategoryView(ListView):
     """Категории статей"""
