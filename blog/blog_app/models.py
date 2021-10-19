@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from taggit.managers import TaggableManager
 
+
 class Category(models.Model):
     """Категории блога"""
     name = models.CharField(max_length=150, blank=False, db_index=True, verbose_name='Наименование')
@@ -50,7 +51,7 @@ class Article(models.Model):
 
     def get_review(self):
         """Список отзывов прикрепленных к статье"""
-        return self.reviews_set.filter(parent__isnull=True) # вернет только родительские отзывы статьи
+        return self.reviews_set.filter(parent__isnull=True)  # вернет только родительские отзывы статьи
 
 
 class Reviews(models.Model):

@@ -1,15 +1,27 @@
 <div class="row">
     <div class="col">
-        <div class="block-27">
-            <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-            </ul>
-        </div>
+        {% if page_obj.has_other_pages %}
+            <div class="block-27">
+                <ul>
+                    {% if page_obj.has_previous %}
+                        <li>
+                            <a href="?page={{ page_obj.previous_page_number }}{{ search_query }}">&lt;</a>
+                        </li>
+                    {% endif %}
+                    {% for num in page_obj.paginator.page_range %}
+                        <li class="{% if request.GET.page == num|stringformat:'i' %} active {% endif %}">
+                            {% if num >= page_obj.number|add:-2 and num <= page_obj.number|add:2 %}
+                                <a href="?page={{ num }}{{ search_query }}">{{ num }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li>
+                            <a href="?page={{ page_obj.next_page_number }}{{ search_query }}">&gt;</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
     </div>
 </div>

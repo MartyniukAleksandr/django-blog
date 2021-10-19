@@ -1,16 +1,23 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.views.generic.base import View
 from django.views.generic import ListView, DetailView
 from .models import Article
 from .forms import ReviewForm
 
 
-class IndexView(ListView):
-    """Список статей"""
+class DataMixin:
+    """Класс Mixin для для выноса повторяющихся элементов"""
     model = Article
-    queryset = Article.objects.filter(draft=False)
+    paginate_by = 5
     context_object_name = 'articles'
     template_name = 'index.html'
+
+
+class IndexView(DataMixin, ListView):
+    """Список статей"""
+    def get_queryset(self):
+        """Queryset статей отфильтрованных по полю draft"""
+        return Article.objects.filter(draft=False)
 
 
 class ArticleDetailView(DetailView):
@@ -22,7 +29,6 @@ class ArticleDetailView(DetailView):
 
 class AddReview(View):
     """Отзывы(комментарии)"""
-
     def post(self, request, pk):
         form = ReviewForm(request.POST)
         article = Article.objects.get(id=pk)
@@ -30,30 +36,33 @@ class AddReview(View):
             form = form.save(commit=False)  # приостанавливаем запись формы
             if request.POST.get("parent", None):  # привязка родительского коментария
                 form.parent_id = int(request.POST.get("parent"))
-            form.article = article  # вносим новыу изменения...
+            form.article = article  # вносим новые изменения...
             form.save()  # и сохраняем их в нашу БД
         return redirect(article.get_absolute_url())
 
 
-class CategoryView(ListView):
+class CategoryView(DataMixin, ListView):
     """Категории статей"""
-    model = Article
-    # queryset = Article.objects.filter(draft=False)
-    context_object_name = 'articles'
-    template_name = 'index.html'
-
     def get_queryset(self):
         """Фильтруем статьи по категориям"""
         return Article.objects.filter(category__slug=self.kwargs['slug'], draft=False)
 
 
-class TagView(ListView):
+class TagView(DataMixin, ListView):
     """Теги сайта"""
-    model = Article
-    # queryset = Article.objects.filter(draft=False)
-    context_object_name = 'articles'
-    template_name = 'index.html'
-
     def get_queryset(self):
         """Фильтруем статьи по ключевым словам(тегам)"""
         return Article.objects.filter(tags__slug=self.kwargs['slug'], draft=False)
+
+
+class SearchView(DataMixin, ListView):
+    """Поиск по названию статей"""
+    def get_queryset(self):
+        """Фильтрация статей по названию, не учитывая регистер """
+        return Article.objects.filter(title__icontains=self.request.GET.get('search_query'))
+
+    def get_context_data(self, *args, **kwargs):
+        """Переопределяем context_data чтобы использовать переменную search_query в форме поиска"""
+        context = super().get_context_data(*args, **kwargs)
+        context['search_query'] = f"&search_query={self.request.GET.get('search_query')}"
+        return context

@@ -17,7 +17,7 @@ class ReviewInline(admin.TabularInline):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'author', 'created_at', 'image', 'category', 'draft')
+    list_display = ('title', 'slug', 'author', 'created_at', 'image', 'category', 'tag_list', 'draft',)
     list_filter = ('draft', 'updated_at', 'created_at', 'author',)
     search_fields = ('title', 'content', 'category__name')
     prepopulated_fields = {'slug': ('title',)}
@@ -27,6 +27,12 @@ class ArticleAdmin(admin.ModelAdmin):
     save_on_top = True  # переносим(дублируем) меню вверх для удобства
     list_editable = ('draft',)  # свойство которое помогает нам редактировать поле "Черновик"
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('tags')
+
+    def tag_list(self, obj):
+        return u", ".join(o.name for o in obj.tags.all())
+
 
 @admin.register(Reviews)
 class ReviewsAdmin(admin.ModelAdmin):
@@ -34,5 +40,5 @@ class ReviewsAdmin(admin.ModelAdmin):
     readonly_fields = ('name', 'email')  # поля только для чтения
 
 
-admin.site.site_title = "Мой блог" # меняем title админ панели
+admin.site.site_title = "Мой блог"  # меняем title админ панели
 admin.site.site_header = "Мой блог"

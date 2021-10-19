@@ -85,18 +85,19 @@
                         <input type="hidden" name="parent" id="contactparent" value="">
                         <div class="form-group">
                             <label for="name">Имя *</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Ваше имя">
                         </div>
                         <div class="form-group">
                             <label for="email">Email *</label>
-                            <input type="email" class="form-control" id="email" name="email">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Ваш email">
                         </div>
 
                         <div class="form-group">
                             <label for="message">Сообщение</label>
                             <textarea name="text" id="message" cols="30" rows="10" class="form-control"
-                                      required=""></textarea>
+                                      required="" placeholder="Ваш отзыв"></textarea>
                         </div>
+                        <p>* Поле обязательное для заполнения</p>
                         <div class="form-group">
                             <input type="submit" value="Отправить отзыв" class="btn py-3 px-4 btn-primary">
                         </div>
