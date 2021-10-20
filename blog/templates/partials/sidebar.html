@@ -5,7 +5,8 @@
         <form action="{% url 'search' %}" method="get" class="search-form">
             <div class="form-group">
                 <span class="icon icon-search"></span>
-                <input type="text" class="form-control" placeholder="Название статьи... нажмите Enter"б name="search_query">
+                <input type="text" class="form-control" placeholder="Название статьи... нажмите Enter"
+                       name="search_query">
             </div>
         </form>
     </div>
@@ -15,7 +16,8 @@
         <ul class="categories">
             {% get_categories as categories %}
             {% for category in categories %}
-            <li class="colorlib-active"><a href="{{ category.get_absolute_url }}">{{ category.name }}<span><i class="icon-folder-o mr-2"></i></span></a></li>
+                <li class="colorlib-active"><a href="{{ category.get_absolute_url }}">{{ category.name }}<span><i
+                        class="icon-folder-o mr-2"></i></span></a></li>
             {% endfor %}
         </ul>
     </div>
@@ -65,7 +67,7 @@
         <ul class="tagcloud">
             {% get_tags as tags %}
             {% for tag in tags %}
-            <a href="{% url 'tags_list' tag.slug %}" class="tag-cloud-link">{{ tag.name }}</a>
+                <a href="{% url 'tags_list' tag.slug %}" class="tag-cloud-link">{{ tag.name }}</a>
             {% empty %}
                 <h4>Список тегов пуст</h4>
             {% endfor %}
@@ -86,14 +88,19 @@
     </div>
 
     <div class="sidebar-box ftco-animate">
-        <h3 class="sidebar-heading">Archives</h3>
+        <h3 class="sidebar-heading">Архив</h3>
+
         <ul class="categories">
-            <li><a href="#">Decob14 2018 <span>(10)</span></a></li>
-            <li><a href="#">September 2018 <span>(6)</span></a></li>
-            <li><a href="#">August 2018 <span>(8)</span></a></li>
-            <li><a href="#">July 2018 <span>(2)</span></a></li>
-            <li><a href="#">June 2018 <span>(7)</span></a></li>
-            <li><a href="#">May 2018 <span>(5)</span></a></li>
+            {% get_archives as date_list %}
+            {% for date in date_list %}
+                <li>
+                    <a href="{% url 'article_month_archive' date.year date.month %}"> {{ date|date:'F' }} {{ date.year }}
+                        <span><i class="icon-calendar"></i></span>
+                    </a>
+                </li>
+            {% empty %}
+                <h4>Список архива пуст</h4>
+            {% endfor %}
         </ul>
     </div>
 

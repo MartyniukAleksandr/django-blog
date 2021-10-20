@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 from django.views.generic.base import View
 from django.views.generic import ListView, DetailView
+from django.views.generic.dates import MonthArchiveView
 from .models import Article
 from .forms import ReviewForm
 
@@ -15,6 +16,7 @@ class DataMixin:
 
 class IndexView(DataMixin, ListView):
     """Список статей"""
+
     def get_queryset(self):
         """Queryset статей отфильтрованных по полю draft"""
         return Article.objects.filter(draft=False)
@@ -29,6 +31,7 @@ class ArticleDetailView(DetailView):
 
 class AddReview(View):
     """Отзывы(комментарии)"""
+
     def post(self, request, pk):
         form = ReviewForm(request.POST)
         article = Article.objects.get(id=pk)
@@ -43,6 +46,7 @@ class AddReview(View):
 
 class CategoryView(DataMixin, ListView):
     """Категории статей"""
+
     def get_queryset(self):
         """Фильтруем статьи по категориям"""
         return Article.objects.filter(category__slug=self.kwargs['slug'], draft=False)
@@ -50,6 +54,7 @@ class CategoryView(DataMixin, ListView):
 
 class TagView(DataMixin, ListView):
     """Теги сайта"""
+
     def get_queryset(self):
         """Фильтруем статьи по ключевым словам(тегам)"""
         return Article.objects.filter(tags__slug=self.kwargs['slug'], draft=False)
@@ -57,6 +62,7 @@ class TagView(DataMixin, ListView):
 
 class SearchView(DataMixin, ListView):
     """Поиск по названию статей"""
+
     def get_queryset(self):
         """Фильтрация статей по названию, не учитывая регистер """
         return Article.objects.filter(title__icontains=self.request.GET.get('search_query'))
@@ -66,3 +72,15 @@ class SearchView(DataMixin, ListView):
         context = super().get_context_data(*args, **kwargs)
         context['search_query'] = f"&search_query={self.request.GET.get('search_query')}"
         return context
+
+
+class ArticleMonthArchiveView(DataMixin, MonthArchiveView):
+    """Архив блога по месяцам"""
+    date_field = "created_at"
+    allow_future = True
+
+    def get_queryset(self):
+        """Фильтрация записей в архиве по году та месяцу"""
+        return Article.objects.filter(
+            created_at__year=self.kwargs['year'], created_at__month=self.kwargs['month'], draft=False
+        )
