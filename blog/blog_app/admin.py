@@ -1,5 +1,16 @@
 from django.contrib import admin
 from .models import Category, Article, Reviews
+from django import forms
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
+
+
+class ArticleAdminForm(forms.ModelForm):
+    """Форма CKEditor"""
+    content = forms.CharField(label='Текст статьи', widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = Article
+        fields = '__all__'
 
 
 @admin.register(Category)
@@ -26,6 +37,7 @@ class ArticleAdmin(admin.ModelAdmin):
     inlines = [ReviewInline]
     save_on_top = True  # переносим(дублируем) меню вверх для удобства
     list_editable = ('draft',)  # свойство которое помогает нам редактировать поле "Черновик"
+    form = ArticleAdminForm
 
     def get_queryset(self, request):
         return super().get_queryset(request).prefetch_related('tags')
