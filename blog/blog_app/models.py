@@ -26,7 +26,7 @@ class Category(models.Model):
 class Article(models.Model):
     """Статьи блога"""
     title = models.CharField(max_length=256, blank=False, verbose_name='Название')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='Категория')
     slug = models.SlugField(max_length=256, db_index=True)
     short_content = models.TextField(verbose_name='Краткое описание', max_length=300, default='Нет описания')
     content = models.TextField(blank=True, default='Нет описания', verbose_name='Текст статьи')
@@ -63,7 +63,7 @@ class Reviews(models.Model):
     parent = models.ForeignKey(
         'self', verbose_name='Родитель', on_delete=models.SET_NULL, blank=True, null=True
     )
-    article = models.ForeignKey(Article, verbose_name='статья', on_delete=models.CASCADE)
+    article = models.ForeignKey('Article', verbose_name='статья', on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.name} - {self.article}"

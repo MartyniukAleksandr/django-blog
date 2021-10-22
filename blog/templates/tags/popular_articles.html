@@ -1,0 +1,20 @@
+<div class="sidebar-box ftco-animate">
+    <h3 class="sidebar-heading">Популярные статьи</h3>
+    {% for popular in popular_articles %}
+        <div class="block-21 mb-4 d-flex">
+            <a class="blog-img mr-4" style="background-image: url({{ popular.image.url }});"></a>
+            <div class="text">
+                <h3 class="heading"><a href="{{ popular.get_absolute_url }}">{{ popular.title }}</a>
+                </h3>
+                <div class="meta">
+                    <div><a href="#"><span class="icon-calendar"></span> {{ popular.created_at|date:"D d M Y" }}</a></div>
+                    <div><a href="#"><span class="icon-person"></span>{{ popular.author }}</a></div>
+                    <div><a href="#"><span class="icon-chat"></span> {{ popular.reviews_set.count }}</a></div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <h4>Список популярных статей пуст</h4>
+    {% endfor %}
+
+</div>

@@ -2,6 +2,7 @@ from django import template
 
 from blog_app.models import Category, Article
 from taggit.models import Tag  # импорт из taggit.models модель Tag
+from django.db.models import Count
 
 register = template.Library()
 
@@ -22,3 +23,14 @@ def get_tags():
 def get_archives():
     """Возвращает список архивов"""
     return Article.objects.dates('created_at', 'month', order='DESC')
+
+
+@register.inclusion_tag('tags/popular_articles.html')
+def get_popular_articles(count=None):
+    """Возвращает список популярных статей"""
+    popular_articles = Article.objects.annotate(
+        num_comments=Count('reviews')
+    ).order_by('-num_comments').filter(draft=False)[:count]
+    return {
+        'popular_articles': popular_articles
+    }
