@@ -1,5 +1,5 @@
 {% load article_tag %}
-
+{% load contact_tags %}
 <div class="col-xl-4 sidebar ftco-animate bg-light pt-5">
     <div class="sidebar-box pt-md-4">
         <form action="{% url 'search' %}" method="get" class="search-form">
@@ -36,15 +36,7 @@
 
     <div class="sidebar-box subs-wrap img py-4"
          style="background-image: url(/static/images/bg_1.jpg);">
-        <div class="overlay"></div>
-        <h3 class="mb-4 sidebar-heading">Newsletter</h3>
-        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia</p>
-        <form action="#" class="subscribe-form">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Email Address">
-                <input type="submit" value="Subscribe" class="mt-2 btn btn-white submit">
-            </div>
-        </form>
+        {% contact_form %}
     </div>
 
     <div class="sidebar-box ftco-animate">

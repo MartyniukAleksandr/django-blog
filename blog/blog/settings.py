@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +39,8 @@ INSTALLED_APPS = [
     'blog_app.apps.BlogAppConfig',
     'taggit',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'email_contact.apps.EmailContactConfig'
 ]
 
 MIDDLEWARE = [
@@ -197,4 +199,10 @@ CKEDITOR_CONFIGS = {
             'elementspath'
         ]),
     }
+}
+
+# MESSAGE_TAGS
+MESSAGE_TAGS = {
+    messages.SUCCESS: 'alert-success',
+    messages.ERROR: 'alert-danger'
 }

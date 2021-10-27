@@ -1,4 +1,3 @@
-from django.db.models import Count
 from django.shortcuts import redirect
 from django.views.generic.base import View
 from django.views.generic import ListView, DetailView
@@ -85,11 +84,3 @@ class ArticleMonthArchiveView(DataMixin, MonthArchiveView):
         return Article.objects.filter(
             created_at__year=self.kwargs['year'], created_at__month=self.kwargs['month'], draft=False
         )
-
-
-# class PopularArticleView(ListView):
-#     model = Article
-#     template_name = 'index.html'
-#
-#     def get_queryset(self):
-#         return Article.objects.get(id=5)

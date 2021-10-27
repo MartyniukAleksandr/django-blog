@@ -1,0 +1,10 @@
+<div class="overlay"></div>
+<h3 class="mb-4 sidebar-heading">Новостная подписка</h3>
+<p class="mb-4">Подпишись чтобы не пропустить интересные статьи нашего блога!</p>
+<form action="{% url 'contact' %}" class="subscribe-form" method="post">
+    <div class="form-group">
+        {% csrf_token %}
+        {{ contact_form }}
+        <input type="submit" value="Подписаться" class="mt-2 btn btn-white submit">
+    </div>
+</form>
