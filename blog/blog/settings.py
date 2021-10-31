@@ -206,3 +206,24 @@ MESSAGE_TAGS = {
     messages.SUCCESS: 'alert-success',
     messages.ERROR: 'alert-danger'
 }
+
+# SMTP
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'fobos339@gmail.com'
+EMAIL_HOST_PASSWORD = 'you password'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# REDIS settings
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = "Europe/Kiev"
+CELERY_TASK_TRACK_STARTED = True
+
+# settings URL
+BASE_URL = 'http://localhost:8000'

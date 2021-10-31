@@ -1,6 +1,10 @@
+import os
+
 from django.db import models
 from django.urls import reverse
 from taggit.managers import TaggableManager
+
+from blog.settings import BASE_URL
 
 
 class Category(models.Model):
@@ -52,6 +56,15 @@ class Article(models.Model):
     def get_review(self):
         """Список отзывов прикрепленных к статье"""
         return self.reviews_set.filter(parent__isnull=True)  # вернет только родительские отзывы статьи
+
+    @property
+    def image_filename(self):
+        """Возвращает путь к файлу картинки"""
+        return os.path.basename(self.image.name)
+
+    def get_truly_absolute_url(self):
+        """Возвращают полный абсолютный путь к примеру http://localhost:8000/akessesuary-dlya-vyazanyh-veshej/"""
+        return BASE_URL + self.get_absolute_url()
 
 
 class Reviews(models.Model):
