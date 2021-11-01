@@ -17,6 +17,7 @@ class DataMixin:
 class IndexView(DataMixin, ListView):
     """Список статей"""
     extra_context = {'title': 'Главная'}
+
     def get_queryset(self):
         """Queryset статей отфильтрованных по полю draft"""
         return Article.objects.filter(draft=False)
@@ -24,11 +25,11 @@ class IndexView(DataMixin, ListView):
 
 class ArticleDetailView(DetailView):
     """Полное описание статьи"""
+
+    extra_context = {'title': 'Описание статьи'}
     model = Article
     slug_field = 'slug'
     template_name = 'blog_detail.html'
-
-
 
 
 class AddReview(View):
@@ -48,6 +49,7 @@ class AddReview(View):
 
 class CategoryView(DataMixin, ListView):
     """Категории статей"""
+    extra_context = {'title': 'Категории'}
 
     def get_queryset(self):
         """Фильтруем статьи по категориям"""
@@ -56,6 +58,7 @@ class CategoryView(DataMixin, ListView):
 
 class TagView(DataMixin, ListView):
     """Теги сайта"""
+    extra_context = {'title': 'Теги'}
 
     def get_queryset(self):
         """Фильтруем статьи по ключевым словам(тегам)"""
@@ -64,6 +67,7 @@ class TagView(DataMixin, ListView):
 
 class SearchView(DataMixin, ListView):
     """Поиск по названию статей"""
+    extra_context = {'title': 'Поиск статей'}
 
     def get_queryset(self):
         """Фильтрация статей по названию, не учитывая регистер """
@@ -78,6 +82,7 @@ class SearchView(DataMixin, ListView):
 
 class ArticleMonthArchiveView(DataMixin, MonthArchiveView):
     """Архив блога по месяцам"""
+    extra_context = {'title': 'Архив'}
     date_field = "created_at"
     allow_future = True
 

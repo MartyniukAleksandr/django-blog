@@ -3,7 +3,6 @@ from django.shortcuts import redirect, render
 from django.views import View
 from .forms import ContactForm, EmailContactForm
 from .tasks import send_greeting_email, get_email
-# from .service import send_by_email
 
 
 class ContactView(View):

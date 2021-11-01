@@ -4,9 +4,10 @@ from .models import Contact
 
 class ContactForm(forms.ModelForm):
     """Форма подписки по email"""
+
     class Meta:
         model = Contact
-        fields = ('email', )
+        fields = ('email',)
         widgets = {
             'email': forms.TextInput(
                 attrs={
@@ -28,7 +29,8 @@ class EmailContactForm(forms.Form):
                 'class': 'form-control',
                 'placeholder': 'Введите имя'
             }
-        )
+        ),
+        label=''
     )
     email = forms.EmailField(
         required=True,
@@ -37,7 +39,9 @@ class EmailContactForm(forms.Form):
                 'class': 'form-control',
                 'placeholder': 'Введите почтовый адрес',
             }
-        )
+        ),
+        label=''
+
     )
     subject = forms.CharField(
         required=True,
@@ -46,7 +50,8 @@ class EmailContactForm(forms.Form):
                 'class': 'form-control',
                 'placeholder': 'Введите тему сообщения',
             }
-        )
+        ),
+        label=''
     )
     message = forms.CharField(
         required=True,
@@ -57,5 +62,6 @@ class EmailContactForm(forms.Form):
                 'rows': '15',
                 'placeholder': 'Введите сообщения',
             }
-        )
+        ),
+        label=''
     )
