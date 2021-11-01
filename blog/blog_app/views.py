@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.views.generic.base import View
 from django.views.generic import ListView, DetailView
 from django.views.generic.dates import MonthArchiveView
@@ -16,7 +16,7 @@ class DataMixin:
 
 class IndexView(DataMixin, ListView):
     """Список статей"""
-
+    extra_context = {'title': 'Главная'}
     def get_queryset(self):
         """Queryset статей отфильтрованных по полю draft"""
         return Article.objects.filter(draft=False)
@@ -27,6 +27,8 @@ class ArticleDetailView(DetailView):
     model = Article
     slug_field = 'slug'
     template_name = 'blog_detail.html'
+
+
 
 
 class AddReview(View):
@@ -84,3 +86,10 @@ class ArticleMonthArchiveView(DataMixin, MonthArchiveView):
         return Article.objects.filter(
             created_at__year=self.kwargs['year'], created_at__month=self.kwargs['month'], draft=False
         )
+
+
+class AboutView(View):
+    """Страница О Нас"""
+
+    def get(self, request):
+        return render(request, 'about.html', {'title': 'О Нас'})

@@ -9,7 +9,7 @@
                         <a href="#" class="img img-2"
                            style="background-image: url({{ article.image.url }});"></a>
                         <div class="text text-2 pl-md-4">
-                            <h3 class="mb-2"><a href="#">{{ article.title}}</a>
+                            <h3 class="mb-2"><a href="{{ article.get_absolute_url }}">{{ article.title}}</a>
                             </h3>
                             <div class="meta-wrap ">
                                 <p class="meta">

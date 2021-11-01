@@ -1,12 +1,13 @@
 <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
 <aside id="colorlib-aside" role="complementary" class="js-fullheight">
     <nav id="colorlib-main-menu" role="navigation">
+        {% url 'article_list_all' as article_list_url %}
+        {% url 'about' as about_url %}
+        {% url 'email_contact' as email_contact_url %}
         <ul>
-            <li class="colorlib-active"><a href="{% url 'article_list_all' %}">Home</a></li>
-            <li><a href="#">Fashion</a></li>
-            <li><a href="#">Travel</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+            <li class={% if request.path == article_list_url %} colorlib-active {% endif %}><a href="{% url 'article_list_all' %}">Главная</a></li>
+            <li class={% if request.path == about_url%} colorlib-active {% endif %}><a href="{% url 'about' %}">О Нас</a></li>
+            <li class={% if request.path == email_contact_url%} colorlib-active {% endif  %}><a href="{% url 'email_contact' %}">Контакты</a></li>
         </ul>
     </nav>
 

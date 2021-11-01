@@ -2,7 +2,7 @@ from django.db.models import Count
 
 
 from blog.celery import app
-from .service import send_greeting
+from .service import send_greeting, send_by_email
 from blog_app.models import Article
 from .models import Contact
 
@@ -45,3 +45,8 @@ def send_beat_email():
         image.add_header('Content-ID', f"<{image_view.image_filename}>")
         msg.attach(image)
     msg.send()
+
+@app.task
+def get_email(subject, message, from_email, to_email):
+    """Задание celery --> получение письма от посетителя сайта"""
+    send_by_email(subject, message, from_email, to_email)
