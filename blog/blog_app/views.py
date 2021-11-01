@@ -25,7 +25,6 @@ class IndexView(DataMixin, ListView):
 
 class ArticleDetailView(DetailView):
     """Полное описание статьи"""
-
     extra_context = {'title': 'Описание статьи'}
     model = Article
     slug_field = 'slug'
