@@ -9,7 +9,7 @@ class ContactForm(forms.ModelForm):
         model = Contact
         fields = ('email',)
         widgets = {
-            'email': forms.TextInput(
+            'email': forms.EmailInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Введите Ваш email'
