@@ -19,7 +19,7 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 
-# Расписание отправки электронной полчты
+# Расписание отправки электронной почты
 app.conf.beat_schedule = {
     'send-spam-every-2-minute': {
         'task': 'email_contact.tasks.send_beat_email',

@@ -1,8 +1,11 @@
 from django.contrib import messages
+from django.urls import reverse_lazy
 from django.shortcuts import redirect, render
 from django.views import View
+from django.views.generic import DeleteView
 from .forms import ContactForm, EmailContactForm
 from .tasks import send_greeting_email, get_email
+from .models import Contact
 
 
 class ContactView(View):
@@ -44,3 +47,12 @@ class EmailContactView(View):
             return redirect('/')
         else:
             messages.error(request, 'Упс! Что то пошло не так! Повторите попытку!')
+
+
+class DeleteContactView(DeleteView):
+    """Отписка от рассылки"""
+    model = Contact
+    template_name = 'contact/contact_delete.html'
+    context_object_name = 'contacts'
+    pk_url_kwarg = 'pk'
+    success_url = reverse_lazy('article_list_all')

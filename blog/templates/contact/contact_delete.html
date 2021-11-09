@@ -1,0 +1,20 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+    <div class="col-xl-8 py-5 px-md-5">
+        <div class="row pt-md-4">
+            <div class="col-md-12">
+                <h2>Отписка от рассылки</h2>
+                <h5>
+                    Мы очень благодарны что Вы были с нами! Желаем Вам удачи и надеемся что в скором времени Вы вернётесь!
+                </h5>
+                <p>Нажмите "Подтвердить" чтобы отписаться от рассылки!</p>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Потвердить" class="btn py-3 px-4 btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
