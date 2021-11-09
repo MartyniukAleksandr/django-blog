@@ -22,7 +22,7 @@ def get_tags():
 @register.simple_tag()
 def get_archives():
     """Возвращает список архивов"""
-    return Article.objects.dates('created_at', 'month', order='DESC')
+    return Article.objects.dates('created_at', 'month', order='DESC').filter(draft=False)
 
 
 @register.inclusion_tag('tags/popular_articles.html')
