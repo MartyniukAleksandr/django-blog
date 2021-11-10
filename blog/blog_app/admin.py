@@ -28,7 +28,7 @@ class ReviewInline(admin.TabularInline):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'author', 'created_at', 'image', 'category', 'tag_list', 'draft',)
+    list_display = ('title', 'slug', 'author', 'created_at', 'updated_at', 'image', 'category', 'tag_list', 'draft',)
     list_filter = ('draft', 'updated_at', 'created_at', 'author',)
     search_fields = ('title', 'content', 'category__name')
     prepopulated_fields = {'slug': ('title',)}

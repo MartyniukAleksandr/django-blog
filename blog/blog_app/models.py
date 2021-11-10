@@ -36,7 +36,7 @@ class Article(models.Model):
     content = models.TextField(blank=True, default='Нет описания', verbose_name='Текст статьи')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
-    image = models.ImageField(upload_to='blog_images/%Y/%m/%d', verbose_name='Изображение', blank=True)
+    image = models.ImageField(upload_to='blog_images/%Y/%m/%d', verbose_name='Изображение', blank=False)
     draft = models.BooleanField(verbose_name='Черновик', default=False)
     author = models.CharField(verbose_name='Автор', blank=False, max_length=150)
     tags = TaggableManager()

@@ -21,25 +21,27 @@ def send_beat_email():
     """Задание celery --> массовая рассылка писем подписанным пользователям"""
     popular_articles = Article.objects.annotate(
         num_comments=Count('reviews')
-    ).order_by('-num_comments').filter(draft=False)
+    ).order_by('-num_comments').filter(draft=False)[:3]
     contacts = Contact.objects.all()
+
+    email_list = []
+    for contact in contacts:
+        email_list.append(contact.email)
+
     msg_html = render_to_string(
         'popular_articles_email/popular_articles.html',
         context={
             'popular_articles': popular_articles,
-            'contacts': contacts
         }
     )
-
     msg_subject = 'Возможно вы пропустили'
     msg_from = 'fobos339@gmail.com'
 
     try:
-        for contact in Contact.objects.all():
-            msg = EmailMultiAlternatives(msg_subject, msg_html, msg_from, [contact.email])
-            msg.content_subtype = 'html'  # Основное содержание - text/html
-            msg.mixed_subtype = 'related'  # устанавливает заголовок электронной почты гарантирующий, ...
-            # ...что изображения будут отображаться в строке, а не в виде вложений
+        msg = EmailMultiAlternatives(msg_subject, msg_html, msg_from, to=email_list)
+        msg.content_subtype = 'html'  # Основное содержание - text/html
+        msg.mixed_subtype = 'related'  # устанавливает заголовок электронной почты гарантирующий, ...
+        # ...что изображения будут отображаться в строке, а не в виде вложений
 
         for image_view in popular_articles:
             # Создаст встроенное вложение нашей картинки
