@@ -11,6 +11,7 @@ def send_greeting(email):
         fail_silently=False,
     )
 
+
 def send_by_email(subject, message, from_email, to_email):
     send_mail(
         subject,
