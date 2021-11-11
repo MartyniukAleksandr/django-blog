@@ -30,7 +30,7 @@ class EmailContactView(View):
         form = EmailContactForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            subject = f"{cd['subject']} От {cd['name']}"
+            subject = f"{cd['subject']}. От {cd['name']}. Email: {cd['email']}"
             from_email = cd['email']
             to_email = 'fobos339@gmail.com'
             message = cd['message']
